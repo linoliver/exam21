@@ -1,6 +1,7 @@
 <template>
   <div class="dingdan">
-    <div class="swiper">
+    <div class="box">
+         <div class="swiper">
       <span>已有N个用户在车轮补换驾照成功</span>
     </div>
     <div class="camera" @click="CameraParentFn">
@@ -114,11 +115,21 @@
         <mt-picker :slots="writecity_slots" @change="writecity_onValuesChange"></mt-picker>
       </mt-popup>
     </div>
-     <upload/>
+    
+  
+    <upload/>
+    </div>
+ 
+    <div id='one'>222qqqqqqqqqqqqqqqqqqqqqq
+      <pcc1></pcc1>
+    </div>
+   
   </div>
 </template>
 <script>
 import upload from "../components/uploader";
+import pcc1 from "../components/pc/pc1";
+import pcc2 from "../components/pc/pc2";
 //引入辅助方法
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 //引入样式
@@ -132,15 +143,19 @@ Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(Picker.name, Picker);
 Vue.component(Popup.name, Popup);
+
 //引入sass
 import "../sass/dingdan.scss";
 export default {
-   components: {
-    upload
+  components: {
+    upload,
+    pcc1,
+    pcc2
   },
   name: "dingdan",
   data() {
     return {
+      show: false,
       actions: [
         {
           name: "拍照",
@@ -183,8 +198,42 @@ export default {
       ]
     };
   },
+  //  mounted(){
+  //   window.onscroll=function(){
+  //     let top = document.documentElement.scrollTop
+  //     this.scrolltop=top
+  //     this.gets(top)
+  //    //
+  //   }.bind(this)
+  // },
+  //   methods:{
+  //   gets(top){
+  //    this.$refs.headers.className=top>100?'header fixed':'header'
+  //    console.log(this.$refs.headers.style.height)
+  //   }
+  //  },
   mounted() {
     this.getCityList("https://chezhu.eclicks.cn/ExchangeJiaZhao/cityList");
+
+    window.onresize = function() {
+      // console.log(this.screen);
+      if (window.innerWidth > 960) {
+        console.log(1);
+        this.show = false;
+        console.log(this.show);
+      } else {
+        this.show = true;
+        console.log(this.show);
+        console.log(2);
+      }
+    };
+    // window.scrollX = function() {
+    //   console.log(1, this);
+    //   let top = document.documentElement.scrollTop;
+    //   this.scrolltop = top;
+    //   //  this.gets(top);
+    //   //
+    // };
   },
   computed: {
     ...mapState({
@@ -192,6 +241,10 @@ export default {
     })
   },
   methods: {
+    // gets(top) {
+    //   this.$refs.headers.className = top > 100 ? "header fixed" : "header";
+    //   console.log(this.$refs.headers.style.height);
+    // },
     ...mapActions({
       getCityList: "app/getCityList"
     }),
@@ -232,5 +285,10 @@ export default {
 };
 </script>
 <style>
+#app1{
+  display: none;
+}
+
 @import url("../sass/dingdan.scss");
+
 </style>
